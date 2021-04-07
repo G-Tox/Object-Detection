@@ -1,0 +1,34 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Resultados de reconocimiento</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
+  </head>
+  <body>
+    
+    <h3>Persona</h3>
+    <div class="container">
+      <div class="foto">
+        <img src="data:image/png;base64,{{ result.image_path }}" class="img-rounded" width="475" height="475"/>
+      </div>
+      <div class="foto">
+        <img src="{{ result.image_path_dni }}" class="img-rounded" width="400" height="300">
+      </div>
+    </div>
+
+    <h3>Prediccion:</h3>
+    <div>DNI: <strong>{{ result.DNI }}</strong></div>
+    <div>Nombre: <strong>{{ result.Nombre }}</strong></div>
+    <div>Apellido: <strong>{{ result.Apellido }}</strong></div>
+    <div>Similitud: <strong>{{ result.Accuracy }}</strong></div>
+    
+    <div id='button'>
+      <form action="/">
+        <input type=submit value='Submit another review'>
+      </form>
+    </div>
+  
+  </body>
+</html>
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width = device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <title>Accediendo al hardaware</title>
+    <style type="text/css">
+    /* Flipping the video as it was not mirror view */
+    video {
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        margin-top: 5px;
+    }
+
+    /* Flipping the canvas image as it was not mirror view */
+    #canvas {
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+    }
+
+    #divoculto {
+     display: none;}
+    </style>
+</head>
+<body>
+
+<div id="container" class='video'>
+    <video autoplay="true" id="videoElement"></video>
+</div>
+<div id="divoculto">
+    <canvas id="canvasOutput"></canvas>
+</div>
+<div id="video-conta" class = 'video'>
+    <img id="image" width='640' height='480'>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+<script src="{{ url_for('static',filename='js/streaming.js')}}" ></script>
+</body>
+</html>

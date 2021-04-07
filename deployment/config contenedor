@@ -1,0 +1,49 @@
+
+--- imagen tensorflow serving:
+
+docker pull tensorflow/serving:1.14.0
+
+
+--- contenedor keras_retinanet
+
+sudo docker run -p 8501:8501 -p 8500:8500 --name retinanet --network="retinanet" --mount type=bind,source=$(pwd)/Documentos/scripts/retinanet_savedmodel/,target=/models/retinanet -e MODEL_NAME=retinanet -t tensorflow/serving:1.14.0
+
+--- contenedor keras_facenet
+
+sudo docker run -p 8501:8501 \
+	-p 8500:8500 \
+  --mount type=bind,source=$(pwd)/Documentos/facenet/1/saved_model.pb,target=/models/facenet/1/saved_model.pb \
+  --mount type=bind,source=$(pwd)/Documentos/facenet/models.config,target=/models/models.config \
+  -t tensorflow/serving:1.14.0 --model_config_file=/models/models.config
+
+
+sudo docker run -p 8501:8501 -p 8500:8500 --name Facenet128 --network="example" --mount type=bind,source=$(pwd)/Documentos/Facenet_keras/saved_model.pb,target=/models/Facenet_keras/1/saved_model.pb --mount type=bind,source=$(pwd)/Documentos/Facenet_keras/models.config,target=/models_face/models.config -t tensorflow/serving:1.14.0 --model_config_file=/models_face/models.config 
+
+
+
+saved_model_cli show --all --dir $(pwd)/Documentos/facenet/1
+
+
+--- contenedor flask
+
+sudo docker build -t flaskapp .
+
+sudo docker run -it -p 7000:4000 --name apl_flask --network="example" -d flaskapp 
+
+
+sudo docker build -t flask_retinanet .
+
+sudo docker run -it -d -p 8000:5000 --name app_retinanet --network="retinanet" -t retinanet_app
+
+
+n
+
+1.0rc2
+
+$(pwd)/Documentos/flask/imagenes/
+
+
+
+/var/lib/docker/overlay2
+
+
